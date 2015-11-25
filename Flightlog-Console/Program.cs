@@ -20,6 +20,11 @@ namespace OCactus.Flightlog.Console
 
             System.Console.WriteLine($"landings: {flights.Sum(f => f.DayLandings)}");
 
+            foreach(var f in flights)
+            {
+                //WriteFlight(f);
+            }
+
             /*
             var invalidFlightTime = flights.Where(f => f.ArrivalTime - f.DepartureTime != f.Flighttime);
             System.Console.WriteLine($"{invalidFlightTime.Count()} invalid flights:");
@@ -54,6 +59,11 @@ namespace OCactus.Flightlog.Console
         {
             var t = TimeSpan.FromMinutes(time);
             System.Console.WriteLine($"{title} time: {(int)t.TotalHours} h {t.Minutes} min");
+        }
+
+        static void WriteFlight(Flight f)
+        {
+            System.Console.WriteLine($"{f.DepartureTime:yyyy-MM-dd} {f.Tailnumber,-6} {f.Model}, {f.DepartureAirport} {f.DepartureTime:hh:mm} {f.DestinationAirport} {f.ArrivalTime:hh:mm} {f.DayLandings} {f.Flighttime.TotalHours:00}:{f.Flighttime.Minutes:00}");
         }
     }
 }
