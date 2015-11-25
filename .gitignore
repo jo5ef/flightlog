@@ -52,3 +52,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+Flightlog-Console/obj/
+Flightlog-Common/obj/
+Flightlog-Common/.vs/
+Flightlog-Console/Flightlog-Console.csproj.user
