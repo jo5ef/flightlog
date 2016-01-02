@@ -1,0 +1,5 @@
+[ 
+	{ "departure_airport": "LOAV", "arrival_airport": "LOGF" },
+	{ "departure_airport": "LOGF", "arrival_airport": "LOGG" },
+	{ "departure_airport": "LOGG", "arrival_airport": "LOAV" }
+]

@@ -10,9 +10,18 @@ namespace OCactus.Flightlog.Console
     {
         static void Main(string[] args)
         {
-            var csvImporter = new CSVImporter();
-            var flights = csvImporter.ParseFlights(File.ReadAllLines("sample.csv"));
+            //var csvImporter = new CSVImporter();
+            //var flights = csvImporter.ParseFlights(File.ReadAllLines("sample.csv"));
 
+            var db = new Database("Server=localhost;Database=flightlog;Uid=flightlog;Pwd=flightlog;");
+            var flights = db.ReadFlights();
+
+            foreach(var f in flights)
+            {
+                WriteFlight(f);
+            }
+
+            /*
             WriteTime("total", flights.Sum(f => f.Flighttime.TotalMinutes));
             WriteTime("pic", flights.Sum(f => f.PICTime.TotalMinutes));
             WriteTime("dual", flights.Sum(f => f.DualTime.TotalMinutes));
@@ -28,7 +37,7 @@ namespace OCactus.Flightlog.Console
             /*
             var invalidFlightTime = flights.Where(f => f.ArrivalTime - f.DepartureTime != f.Flighttime);
             System.Console.WriteLine($"{invalidFlightTime.Count()} invalid flights:");
-            */
+            
 
             var airports = new Dictionary<string, Airport>();
             foreach(var a in csvImporter.ParseAirports(File.ReadAllLines("airports.csv")))
@@ -45,7 +54,7 @@ namespace OCactus.Flightlog.Console
                 xcTime += f.Flighttime;
             }
 
-            WriteTime("cross country", xcTime.TotalMinutes);
+            WriteTime("cross country", xcTime.TotalMinutes);*/
         }
 
         static double Distance(Flight f, Dictionary<string, Airport> airports)

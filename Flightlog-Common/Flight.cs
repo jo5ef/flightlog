@@ -4,6 +4,8 @@ namespace OCactus.Flightlog.Common
 {
     public class Flight
     {
+        public int Id { get; set; }
+
         public string Tailnumber { get; set; }
 
         public string Model { get; set; }
