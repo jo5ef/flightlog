@@ -6,6 +6,6 @@ namespace OCactus.Flightlog.Common
     {
         int WriteFlight(Flight f);
 
-        IEnumerable<Flight> ReadFlights();
+        IEnumerable<Flight> ReadFlights(int count = 20);
     }
 }

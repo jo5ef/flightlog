@@ -8,7 +8,7 @@ namespace OCactus.Flightlog.Common
 
         public string Tailnumber { get; set; }
 
-        public string Model { get; set; }
+        public string Type { get; set; }
 
         public string Crew { get; set; }
 
@@ -24,7 +24,7 @@ namespace OCactus.Flightlog.Common
 
         public int NightLandings { get; set; }
 
-        public TimeSpan Flighttime { get; set; }
+        public TimeSpan FlightTime { get; set; }
 
         public TimeSpan PICTime { get; set; }
 

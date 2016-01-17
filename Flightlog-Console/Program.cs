@@ -72,7 +72,7 @@ namespace OCactus.Flightlog.Console
 
         static void WriteFlight(Flight f)
         {
-            System.Console.WriteLine($"{f.DepartureTime:yyyy-MM-dd} {f.Tailnumber,-6} {f.Model}, {f.DepartureAirport} {f.DepartureTime:hh:mm} {f.DestinationAirport} {f.ArrivalTime:hh:mm} {f.DayLandings} {f.Flighttime.TotalHours:00}:{f.Flighttime.Minutes:00}");
+            System.Console.WriteLine($"{f.DepartureTime:yyyy-MM-dd} {f.Tailnumber,-6} {f.Type}, {f.DepartureAirport} {f.DepartureTime:hh:mm} {f.DestinationAirport} {f.ArrivalTime:hh:mm} {f.DayLandings} {f.FlightTime.TotalHours:00}:{f.FlightTime.Minutes:00}");
         }
     }
 }

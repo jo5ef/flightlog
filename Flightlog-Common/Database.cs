@@ -49,7 +49,7 @@ namespace OCactus.Flightlog.Common
                 @night_time, @ifr_time, @remarks);", db);
 
             cmd.Parameters.AddWithValue("tailnumber", f.Tailnumber);
-            cmd.Parameters.AddWithValue("type", f.Model);
+            cmd.Parameters.AddWithValue("type", f.Type);
             cmd.Parameters.AddWithValue("crew", f.Crew);
             cmd.Parameters.AddWithValue("departure_airport", airports[f.DepartureAirport].Id);
             cmd.Parameters.AddWithValue("departure_time", f.DepartureTime);
@@ -66,14 +66,17 @@ namespace OCactus.Flightlog.Common
             return cmd.ExecuteNonQuery();
         }
 
-        public IEnumerable<Flight> ReadFlights()
+        public IEnumerable<Flight> ReadFlights(int count = 20)
         {
             var cmd = new MySqlCommand(@"SELECT f.id, f.tailnumber, f.type, f.crew,
                 dep.identifier AS departure_airport, f.departure_time, arr.identifier AS arrival_airport, f.arrival_time,
                 f.landings_day, f.landings_night, f.pic_time, f.dual_time, f.night_time, f.ifr_time, f.remarks
                 FROM flight f
 	                JOIN airport dep ON dep.id = f.departure_airport
-                    JOIN airport arr ON arr.id = f.arrival_airport;", db);
+                    JOIN airport arr ON arr.id = f.arrival_airport
+                LIMIT @count;", db);
+
+            cmd.Parameters.AddWithValue("count", count);
 
             using (var reader = cmd.ExecuteReader())
             {
@@ -86,11 +89,11 @@ namespace OCactus.Flightlog.Common
 
         private Flight ReadFlight(MySqlDataReader reader)
         {
-            return new Flight
+            var flight = new Flight
             {
                 Id = reader.GetInt32("id"),
                 Tailnumber = reader.GetString("tailnumber"),
-                Model = reader.GetString("type"),
+                Type = reader.GetString("type"),
                 Crew = reader.GetString("crew"),
                 DepartureAirport = reader.GetString("departure_airport"),
                 DepartureTime = reader.GetDateTime("departure_time"),
@@ -104,6 +107,10 @@ namespace OCactus.Flightlog.Common
                 IFRTime = TimeSpan.FromMinutes(reader.GetInt32("ifr_time")),
                 Remarks = reader.GetString("remarks")
             };
+
+            flight.FlightTime = flight.ArrivalTime - flight.DepartureTime;
+
+            return flight;
         }
     }
 }

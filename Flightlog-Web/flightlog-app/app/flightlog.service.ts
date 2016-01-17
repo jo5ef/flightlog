@@ -5,22 +5,40 @@ import {Http} from 'angular2/http';
 @Injectable()
 export class FlightlogService {
 
-	private dummyData: Flight[];
 
 	constructor(private http: Http) {
-		this.dummyData = [{"departure_airport": "LOAV", "arrival_airport": "LOGF"}];
 	}
 
 	getFlights(): Promise<Flight[]> {
 		return new Promise<Flight[]>(resolve => {
-			this.http.get('http://localhost:2612/api/Flight')
+			this.http.get('http://localhost:16525/api/Flight')
 				.subscribe(f => {
-					console.log('subscribe!');
-					resolve(f.json());
+					var flights = f.json();
+					for(var i in flights) {
+						this.fixFlight(flights[i]);
+					}
+					resolve(flights);
 				});
 		});
-		/*	
-		return new Promise<Flight[]>(resolve =>
-			setTimeout(() => resolve(this.dummyData)));*/
+	}
+
+	private fixFlight(f: any): void {
+		f.DepartureTime = new Date(f.DepartureTime);
+		f.ArrivalTime = new Date(f.ArrivalTime);
+		f.FlightTime = this.parseFlightTime(f.FlightTime);
+		f.PICTime = this.parseFlightTime(f.PICTime);
+		f.DualTime = this.parseFlightTime(f.DualTime);
+		f.NightTime = this.parseFlightTime(f.NightTime);
+		f.IFRTime = this.parseFlightTime(f.IFRTime);
+	}
+
+	private parseFlightTime(s: string) {
+		var parts = s.split(':');
+
+		var totalMinutes = 0;
+		totalMinutes += +parts[1];
+		totalMinutes += 60 * +parts[0];
+
+		return totalMinutes;
 	}
 }

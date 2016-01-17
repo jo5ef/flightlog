@@ -13,9 +13,9 @@ namespace OCactus.Flightlog.Web.Controllers
             db = new Database("Server=localhost;Database=flightlog;Uid=flightlog;Pwd=flightlog;");
         }
 
-        public IEnumerable<Flight> Get()
+        public IEnumerable<Flight> Get(int count = 20)
         {
-            return db.ReadFlights();
+            return db.ReadFlights(count);
         }
     }
 }

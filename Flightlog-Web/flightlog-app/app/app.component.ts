@@ -1,16 +1,14 @@
 import {Component, OnInit} from 'angular2/core';
 import {Flight} from './flight';
 import {FlightlogService} from './flightlog.service';
+import {FlightlogDatePipe} from './pipes/flightlogdatepipe';
+import {FlightTimePipe} from './pipes/flighttimepipe';
 
 @Component({
 	selector: 'flightlog-app',
-	template: `<h1>flights</h1>
-		<ul>
-		<li *ngFor="#flight of flights">
-			{{flight.DepartureAirport}} -> {{flight.DestinationAirport}}
-		</li>
-		</ul>`,
-	providers: [FlightlogService]
+	templateUrl: './app/templates/app.html',
+	providers: [FlightlogService],
+	pipes: [FlightlogDatePipe, FlightTimePipe]
 })
 
 export class AppComponent implements OnInit {

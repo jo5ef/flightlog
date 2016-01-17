@@ -1,0 +1,37 @@
+<h1>flightlog</h1>
+<table>
+	<thead>
+		<tr>
+			<th>date</th>
+			<th>from</th>
+			<th>start</th>
+			<th>dest</th>
+			<th>end</th>
+			<th>flighttime</th>
+			<th>pic</th>
+			<th>dual</th>
+			<th>night</th>
+			<th>ifr</th>
+			<th>DayLandings</th>
+			<th>NightLandings</th>
+			<!--<th>Remarks</th>-->
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="#flight of flights">
+			<td>{{flight.DepartureTime | fldate }}</td>
+			<td>{{flight.DepartureAirport}}</td>
+			<td>{{flight.DepartureTime | date:'HH:mm'}}</td>
+			<td>{{flight.DestinationAirport}}</td>
+			<td>{{flight.ArrivalTime | date:'HH:mm'}}</td>
+			<td>{{flight.FlightTime | fltime }}</td>
+			<td>{{flight.PICTime | fltime }}</td>
+			<td>{{flight.DualTime | fltime }}</td>
+			<td>{{flight.NightTime | fltime }}</td>
+			<td>{{flight.IFRTime | fltime }}</td>
+			<td>{{flight.DayLandings}}</td>
+			<td>{{flight.NightLandings}}</td>
+			<!--<td>{{flight.Remarks}}</td>-->
+		</tr>
+	</tbody>
+</table>

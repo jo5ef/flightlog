@@ -18,14 +18,14 @@ namespace OCactus.Flightlog.Console
                 yield return new Flight
                 {
                     Tailnumber = parts[1],
-                    Model = parts[2],
+                    Type = parts[2],
                     Crew = parts[3],
                     DepartureAirport = parts[4],
                     DepartureTime = MakeTime(date, parts[5]),
                     DestinationAirport = parts[6],
                     ArrivalTime = MakeTime(date, parts[7]),
                     DayLandings = int.Parse(parts[8]),
-                    Flighttime = MakeTimespan(parts[9]),
+                    FlightTime = MakeTimespan(parts[9]),
                     PICTime = MakeTimespan(parts[10]),
                     DualTime = MakeTimespan(parts[11]),
                     Remarks = parts[12],
